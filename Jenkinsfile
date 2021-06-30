@@ -13,7 +13,7 @@ pipeline {
         stage('build') {
             steps {
                 echo 'building...'
-                sh "mvn package"
+                sh "mvn -Dmaven.test.skip clean package"
             }
         }
     }
