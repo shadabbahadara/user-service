@@ -3,6 +3,10 @@ pipeline {
     tools {
         maven 'mavenGTC'
     }
+    environment {
+        dockerImage = ''
+        registry = 'localhost:5000/user-service'
+    }
     stages {
         stage('checkout') {
             steps {
@@ -14,6 +18,22 @@ pipeline {
             steps {
                 echo 'building...'
                 sh "mvn -Dmaven.test.skip clean package"
+            }
+        }
+        stage('build docker image') {
+            steps {
+                echo 'building docker image...'
+                script {
+                    dockerImage = docker.build registry
+                }
+            }
+        }
+        stage('push docker image') {
+            steps {
+                echo 'pushing docker image to docker registry...'
+                script {
+                    dockerImage.push()
+                }
             }
         }
     }
