@@ -5,7 +5,7 @@ pipeline {
     }
     environment {
         dockerImage = ''
-        registry = 'localhost:5000/user-service'
+        registry = 'localhost:5000/user-service:1.0.1'
     }
     stages {
         stage('checkout') {
